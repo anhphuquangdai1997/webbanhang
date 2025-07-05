@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosClient from "../../utils/axios"
+import axiosClient from "../../utils/axiosClient";
 
 interface FetchProductsParams {
   page?: number;
@@ -8,7 +8,7 @@ interface FetchProductsParams {
   price?: [number, number];
   ratings?: number;
 }
-
+// get Product
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
   async (params: FetchProductsParams, thunkAPI) => {
@@ -28,3 +28,18 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
+
+export const getAdminProduct = createAsyncThunk(
+  "product/getAdminProduct",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosClient.get("/admin/products");
+      return data.products;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Unauthorized");
+    }
+  }
+);
+
+
+

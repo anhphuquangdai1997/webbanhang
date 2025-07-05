@@ -5,8 +5,10 @@ import { Product } from "../../../interface/Products";
 import { BsCart2 } from "react-icons/bs";
 import Rating from "../../../components/layout/Rating";
 import Breadcrumb from "../../../components/layout/Breadcrumb";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../../components/layout/Loader";
+import { addToCart } from "../../../redux/actions/cartActions";
+import { IoCheckmarkCircle } from "react-icons/io5";
 // import { Carousel } from 'react-responsive-carousel';
 // import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -15,7 +17,10 @@ const ProductDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [product, setProduct] = useState<Product | null>(null);
     const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
+    const [showSuccess, setShowSuccess] = useState(false);
     const { loading } = useAppSelector((state) => state.product);
+
+    const dispatch =useAppDispatch()
 
     useEffect(() => {
         const fetchProductById = async () => {
@@ -43,14 +48,28 @@ const ProductDetail: React.FC = () => {
     }, [product]);
 
     if (!product) return null;
-    if (loading) return <Loader />;
-
+    if (loading) return <Loader />;   
     const handleSelectImage = (index: number) => {
         setSelectedImageIndex(index);
+    };    const addToCartHandler = () => {
+        const quantity = 1;
+        if (product.Stock < quantity) {
+            alert("Xin lỗi, sản phẩm đã hết hàng");
+            return;
+        }
+        dispatch(addToCart({ id: product._id, quantity }));
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 2000);
     };
 
     return (
         <div className="max-w-6xl mx-auto p-4">
+            {showSuccess && (
+                <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 z-50">
+                    <IoCheckmarkCircle size={20} />
+                    <span>Đã thêm vào giỏ hàng</span>
+                </div>
+            )}
             <Breadcrumb />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Left - Images */}
@@ -105,7 +124,8 @@ const ProductDetail: React.FC = () => {
                         <button
                             className="border py-2 px-0.5 border-gray-200 text-red-500 rounded-md text-center flex flex-col items-center"
                             type="button"
-                            onClick={() => alert('Thêm vào giỏ')}
+                            disabled={product.Stock<1 ?true :false}
+                            onClick={addToCartHandler}
                         >
                             <BsCart2 size={20} />
                             <span className="text-[9px] font-tahoma">Thêm vào giỏ</span>

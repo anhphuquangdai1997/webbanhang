@@ -15,9 +15,8 @@ const Navbar = () => {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-
     const { isAuthenticated, user, loading } = useAppSelector((state) => state.user);
+    const { cartItems } = useAppSelector((state) => state.cart);
     const dispatch = useAppDispatch();
 
     const handleSearch = (e: React.FormEvent) => {
@@ -91,7 +90,7 @@ const Navbar = () => {
                                     >
                                         <img
                                             src={user.avatar?.url || "/default-avatar.png"}
-                                            alt={user.name}
+                                            alt=""
                                             className="w-10 h-10 rounded-full object-cover border border-gray-300 cursor-pointer hover:border-indigo-500 transition-colors"
                                         />
                                     </button>
@@ -157,12 +156,16 @@ const Navbar = () => {
                                 </Link>
                             )}
                         </div>
-
                         <Link
                             to="/cart"
-                            className="w-10 h-10 flex justify-center items-center hover:bg-gray-400 text-gray-500 bg-gray-200 border-none rounded-full text-sm font-medium"
+                            className="w-10 h-10 flex justify-center items-center hover:bg-gray-400 text-gray-500 bg-gray-200 border-none rounded-full text-sm font-medium relative"
                         >
                             <BsCart2 size={20} />
+                            {cartItems.length > 0 && (
+                                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                    {cartItems.length}
+                                </span>
+                            )}
                         </Link>
                     </div>
 
@@ -223,7 +226,14 @@ const Navbar = () => {
                                 <IoIosSearch size={24} />
                             )}
                         </button>
-                        <BsCart2 size={22} />
+                        <Link to="/cart" className="relative">
+                            <BsCart2 size={22} />
+                            {cartItems.length > 0 && (
+                                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                                    {cartItems.length}
+                                </span>
+                            )}
+                        </Link>
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 focus:outline-none"

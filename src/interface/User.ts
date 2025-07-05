@@ -13,10 +13,20 @@ export interface User {
 } 
 export interface UserState {
     user: User | null;
-    token: string | null;
     isAuthenticated: boolean;
     loading: boolean;
     error: string | null;
     // users: User[]; // For admin to manage users
+}
+
+export interface UserProfile {
+    _id: string;
+    name: string;
+    email: string;  
+    avatar?: {
+        public_id: string;
+        url: string;
+    };
+    role:string
 }
 

@@ -23,6 +23,7 @@ export interface Product {
 
 export interface ProductState {
     products: Product[];
+    adminProducts:Product[];
     loading: boolean;
     error: string | null;
     currentPage: number;
