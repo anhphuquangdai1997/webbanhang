@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
-import ProfileImage from "../../assets/profile.png";
+import ProfileImage from "../../assets/Profile.png";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { registerUser } from "../../redux/actions/userAction";
 
