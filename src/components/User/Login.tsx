@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { login } from '../../redux/actions/userAction';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -9,12 +9,14 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirect = new URLSearchParams(location.search).get("redirect") || "/";
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/');
+      navigate(`/${redirect}`);
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate,redirect]);
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault();

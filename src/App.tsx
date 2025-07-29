@@ -14,7 +14,9 @@ import UserAdmin from './components/Admin/UserAdmin'
 import NewProductAdmin from './components/Admin/NewProductAdmin'
 import NotFoundPage from './page/NotFoundPage'
 import Register from './components/User/Register'
-import Payment from './components/Order/Payment'
+import Shipping from './page/carts/Shipping'
+import Payment from './page/carts/Payment'
+import ConfirmOrder from './page/carts/ConfirmOrder'
 
 function App() {
   // const dispatch = useDispatch<AppDispatch>();
@@ -53,7 +55,15 @@ function App() {
             <Route path="/admin/product" element={<NewProductAdmin />} />
           </Route>
           <Route path="/cart" element={<Carts/>} />
-          <Route path="/cart/payment" element={<Payment/>} />
+          <Route element={<ProtectedRouter />}>
+            <Route path="/shipping" element={<Shipping />} />
+          </Route>
+          <Route element={<ProtectedRouter />}>
+            <Route path="/order/confirm" element={<ConfirmOrder />} />
+          </Route>
+          <Route element={<ProtectedRouter />}>
+            <Route path="/order/payment" element={<Payment />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

@@ -70,7 +70,7 @@ const NavHome: React.FC = () => {
         {/* Dropdown sắp xếp */}
         <Dropdown
           label={currentSortLabel}
-          size="sm"
+          size="xs"
           dismissOnClick={true}
           className="z-2 bg-gray-200 text-gray-600"
         >
@@ -87,7 +87,7 @@ const NavHome: React.FC = () => {
         {/* Dropdown danh mục */}
         <Dropdown
           label={currentCategoryLabel}
-          size="sm"
+          size="xs"
           dismissOnClick={true}
           className="z-2 bg-gray-200 text-gray-600"
         >

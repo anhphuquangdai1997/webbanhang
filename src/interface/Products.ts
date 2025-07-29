@@ -32,4 +32,5 @@ export interface ProductState {
     filteredCategory:string;
     priceRange: [number, number];
     ratings: number;
+    productDetail?: Product | null;
 }

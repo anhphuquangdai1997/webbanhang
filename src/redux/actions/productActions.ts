@@ -61,5 +61,18 @@ export const createProduct = createAsyncThunk(
   }
 )
 
+// Product Detail
+export const getProductDetail = createAsyncThunk(
+  "product/getProductDetail",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosClient.get(`/product/${id}`);
+      return data.product;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Failed to fetch product details");
+    }
+  }
+);
+
 
 

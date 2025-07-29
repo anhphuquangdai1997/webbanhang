@@ -4,6 +4,7 @@ import { IoIosSearch } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { CiMenuBurger } from "react-icons/ci";
 import { BsCart2 } from "react-icons/bs";
+import { RiListUnordered } from "react-icons/ri";
 import { FaUserCircle, FaSignOutAlt, FaUserShield, FaUser } from "react-icons/fa";
 import Menu from './Menu';
 import DrawerMobile from './DrawerMobile';
@@ -137,6 +138,23 @@ const Navbar = () => {
                                                     >
                                                         <FaUserCircle className="text-gray-500" />
                                                         Hồ sơ
+                                                    </Link>
+                                                    <Link
+                                                        to="/cart"
+                                                        onClick={() => setIsUserMenuOpen(false)}
+                                                        className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition"
+                                                    >
+                                                        <RiListUnordered className="text-gray-500" />
+                                                        Đơn hàng
+                                                    </Link>
+
+                                                    <Link
+                                                        to="/cart"
+                                                        onClick={() => setIsUserMenuOpen(false)}
+                                                        className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition"
+                                                    >
+                                                        <BsCart2 className="text-gray-500" />
+                                                        Giỏ hàng
                                                     </Link>
 
                                                     <hr className="my-1 border-gray-100" />

@@ -1,11 +1,13 @@
 import { Fragment } from "react/jsx-runtime";
-import MetaData from "../layout/MetaData";
-import MenuBar from "../layout/MenuBar";
+import MetaData from "../../components/layout/MetaData";
+import MenuBar from "../../components/layout/MenuBar";
+import CheckoutSteps from "./CheckoutSteps";
 
 const Payment: React.FC = () => {
     return (
         <Fragment>
             <MetaData title="Payment" />
+            <CheckoutSteps progress={100} />
             <div className="max-w-5xl mx-auto">
                 <MenuBar title="Thanh toán" />
                 <div className="flex">

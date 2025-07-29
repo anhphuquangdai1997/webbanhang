@@ -1,11 +1,10 @@
 import { useParams } from "react-router-dom";
-import productApi from "../../../services/ApiProducts";
 import { useEffect, useState } from "react";
-import { Product } from "../../../interface/Products";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { getProductDetail } from "../../../redux/actions/productActions";
 import { BsCart2 } from "react-icons/bs";
 import Rating from "../../../components/layout/Rating";
 import Breadcrumb from "../../../components/layout/Breadcrumb";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../../components/layout/Loader";
 import { addToCart } from "../../../redux/actions/cartActions";
 import { IoCheckmarkCircle } from "react-icons/io5";
@@ -17,28 +16,18 @@ import InteractiveRating from "../../../components/layout/InteractiveRating";
 
 const ProductDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const [product, setProduct] = useState<Product | null>(null);
+    const dispatch = useAppDispatch();
+    const { productDetail: product, loading } = useAppSelector((state) => state.product);
     const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
     const [showSuccess, setShowSuccess] = useState(false);
-    const { loading } = useAppSelector((state) => state.product);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [rating, setRating] = useState(5);
 
-    const dispatch = useAppDispatch()
-
     useEffect(() => {
-        const fetchProductById = async () => {
-            if (!id) return;
-            try {
-                const response = await productApi.products.getProductById(id);
-                setProduct(response.data.product);
-                setSelectedImageIndex(0);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchProductById();
-    }, [id]);
+        if (!id) return;
+        dispatch(getProductDetail(id));
+        setSelectedImageIndex(0);
+    }, [id, dispatch]);
 
 
     useEffect(() => {
@@ -55,7 +44,8 @@ const ProductDetail: React.FC = () => {
     if (loading) return <Loader />;
     const handleSelectImage = (index: number) => {
         setSelectedImageIndex(index);
-    }; const addToCartHandler = () => {
+    };
+    const addToCartHandler = () => {
         const quantity = 1;
         if (product.Stock < quantity) {
             alert("Xin lỗi, sản phẩm đã hết hàng");

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchProducts, getAdminProduct } from "../actions/productActions";
+import { fetchProducts, getAdminProduct,getProductDetail } from "../actions/productActions";
 import { ProductState } from "../../interface/Products";
 
 const initialState: ProductState = {
@@ -79,6 +79,20 @@ const productSlice = createSlice({
                 state.adminProducts = action.payload;
             })
             .addCase(getAdminProduct.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
+        builder
+            .addCase(getProductDetail.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getProductDetail.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.productDetail = action.payload;
+            })
+            .addCase(getProductDetail.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             });
