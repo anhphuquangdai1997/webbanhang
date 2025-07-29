@@ -14,7 +14,8 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(`/${redirect}`);
+      const safeRedirect = redirect.startsWith("/") ? redirect : `/${redirect}`;
+      navigate(safeRedirect);
     }
   }, [isAuthenticated, navigate,redirect]);
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CiFilter, CiMenuBurger, CiUser } from "react-icons/ci";
 import { TfiMore } from "react-icons/tfi";
 import DrawerMobile from './DrawerMobile';
+import { Link } from 'react-router-dom';
 
 const TabMobile: React.FC = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -43,7 +44,8 @@ const TabMobile: React.FC = () => {
                         </span>
                     </li>
 
-                    <li
+                    <Link
+                        to='/login'
                         onClick={() => handleClickTab(2)}
                         className={`cursor-pointer flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-all duration-200 min-w-0 flex-1 ${activeTab === 2 ? 'text-blue-600 bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                             }`}
@@ -52,15 +54,15 @@ const TabMobile: React.FC = () => {
                         <span className={`text-xs font-medium truncate ${activeTab === 2 ? 'text-blue-600' : 'text-gray-500'}`}>
                             Tài khoản
                         </span>
-                    </li>
+                    </Link>
 
                     <li
                         onClick={() => handleClickTab(3)}
-                        className={`cursor-pointer flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-all duration-200 min-w-0 flex-1 ${activeTab === 2 ? 'text-blue-600 bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                        className={`cursor-pointer flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-all duration-200 min-w-0 flex-1 ${activeTab === 3 ? 'text-blue-600 bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                             }`}
                     >
                         <TfiMore size={24} className={`mb-1 ${activeTab === 3 ? 'text-blue-600' : 'text-gray-500'}`} />
-                        <span className={`text-xs font-medium truncate ${activeTab === 2 ? 'text-blue-600' : 'text-gray-500'}`}>
+                        <span className={`text-xs font-medium truncate ${activeTab === 3 ? 'text-blue-600' : 'text-gray-500'}`}>
                             xem thêm
                         </span>
                     </li>
