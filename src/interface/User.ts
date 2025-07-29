@@ -16,7 +16,11 @@ export interface UserState {
     isAuthenticated: boolean;
     loading: boolean;
     error: string | null;
-    // users: User[]; // For admin to manage users
+    users: User[];
+    deleteLoading: boolean;
+    deleteSuccess: boolean;
+    updateLoading: boolean,
+    updateSuccess: boolean,
 }
 
 export interface UserProfile {

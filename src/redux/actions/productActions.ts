@@ -8,6 +8,10 @@ interface FetchProductsParams {
   price?: [number, number];
   ratings?: number;
 }
+
+// interface ProductCreateData {
+
+// }
 // get Product
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
@@ -40,6 +44,22 @@ export const getAdminProduct = createAsyncThunk(
     }
   }
 );
+
+// Create Product
+export const createProduct = createAsyncThunk(
+  "product/createProduct",
+  async (productData: any, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+      const {data} =await axiosClient.post("/admin/product/new",productData,config)
+      return data.product
+    } catch (error:any) {
+      return rejectWithValue(error.response?.data?.message || "Failed to create product");
+    }
+  }
+)
 
 
 

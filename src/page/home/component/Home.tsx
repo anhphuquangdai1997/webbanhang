@@ -1,4 +1,6 @@
 import { NavHome } from ".."
+import TabMobile from "../../../components/layout/TabMobile"
+import Footer from "../../Footer/Footer"
 import Products from "../../products"
 import Filter from "./Filter/Filter"
 
@@ -11,6 +13,12 @@ const Home = () => {
                     <div className="px-4"><NavHome /></div>
                     <Products />
                 </div>
+            </div>
+            <div className="hidden md:block">
+                <Footer/>
+            </div>
+            <div className="block md:hidden fixed bottom-0 w-full z-50">
+                <TabMobile/>
             </div>
         </div>
     )

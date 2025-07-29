@@ -13,6 +13,8 @@ import OrderAdmin from './components/Admin/OrderAdmin'
 import UserAdmin from './components/Admin/UserAdmin'
 import NewProductAdmin from './components/Admin/NewProductAdmin'
 import NotFoundPage from './page/NotFoundPage'
+import Register from './components/User/Register'
+import Payment from './components/Order/Payment'
 
 function App() {
   // const dispatch = useDispatch<AppDispatch>();
@@ -29,6 +31,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route element={<ProtectedRouter />}>
@@ -50,6 +53,7 @@ function App() {
             <Route path="/admin/product" element={<NewProductAdmin />} />
           </Route>
           <Route path="/cart" element={<Carts/>} />
+          <Route path="/cart/payment" element={<Payment/>} />
         </Routes>
       </BrowserRouter>
     </>

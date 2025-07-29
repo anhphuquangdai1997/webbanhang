@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import axios from "axios";
 import { CartItem, ShippingInfo } from "../../interface/Cart";
+import axiosClient from "../../utils/axiosClient";
 
 export const addToCart = createAsyncThunk(
     "cart/addToCart",
@@ -8,7 +8,7 @@ export const addToCart = createAsyncThunk(
         { id, quantity }: { id: string; quantity: number },
         { getState }
     ) => {
-        const { data } = await axios.get(`https://backend-fullstack-kbiq.onrender.com/api/v1/product/${id}`);
+        const { data } = await axiosClient.get(`/product/${id}`);
         const item: CartItem = {
             product: data.product._id,
             name: data.product.name,

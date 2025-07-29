@@ -111,8 +111,8 @@ const Filter: React.FC = () => {
                     ))}
 
                     {/* Input và slider */}
-                    <div className="flex pt-4">
-                        <div className="border rounded text-[14px] h-[2rem] px-1 py-1.5">
+                    <div className="flex pt-4 items-center gap-1">
+                        <div className="border rounded-xl text-[12px] h-[2.5rem] flex flex-col items-center min-w-[70px]">
                             <input
                                 onChange={handleMinChange}
                                 value={priceRange[0]}
@@ -120,11 +120,11 @@ const Filter: React.FC = () => {
                                 min={0}
                                 max={priceRange[1]}
                                 placeholder="Min"
-                                className="w-full text-right pr-[33px]"
+                                className="w-full text-left border-none outline-none bg-transparent text-base"
                             />
                         </div>
-                        <span className="flex items-center px-1">~</span>
-                        <div className="border rounded text-[14px] h-[2rem] px-1 py-1.5">
+                        <span className="flex items-center px-1 text-xl font-bold">~</span>
+                        <div className="border rounded-xl text-[14px] h-[2.5rem] flex flex-col items-center min-w-[70px]">
                             <input
                                 onChange={handleMaxChange}
                                 value={priceRange[1]}
@@ -132,12 +132,12 @@ const Filter: React.FC = () => {
                                 min={priceRange[0]}
                                 max={10000}
                                 placeholder="Max"
-                                className="w-full text-right pr-[33px]"
+                                className="w-full text-left border-none outline-none bg-transparent text-base"
                             />
                         </div>
                     </div>
 
-                    <div className="w-full">
+                    <div className="w-full flex items-center mt-2">
                         <Slider
                             range
                             min={0}
@@ -152,6 +152,7 @@ const Filter: React.FC = () => {
                                 { backgroundColor: '#BB0000', borderColor: '#BB0000' },
                                 { backgroundColor: '#BB0000', borderColor: '#BB0000' }
                             ]}
+                            railStyle={{ backgroundColor: '#eee', height: 6 }}
                         />
                     </div>
 

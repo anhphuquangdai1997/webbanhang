@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { login } from '../../redux/actions/userAction';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -60,9 +60,9 @@ const Login: React.FC = () => {
         </form>
         <p className="mt-4 text-center text-sm text-gray-600">
           Bạn chưa có tài khoản?{" "}
-          <a href="#" className="text-indigo-500 hover:underline">
+          <Link to='/register' className="text-indigo-500 hover:underline">
             Đăng ký
-          </a>
+          </Link>
         </p>
       </div>
     </div>
