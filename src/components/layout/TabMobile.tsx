@@ -3,20 +3,23 @@ import { CiFilter, CiMenuBurger, CiUser } from "react-icons/ci";
 import { TfiMore } from "react-icons/tfi";
 import DrawerMobile from './DrawerMobile';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../redux/hooks';
 
 const TabMobile: React.FC = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+    const { isAuthenticated, user } = useAppSelector((state) => state.user);
+
     const handleClickTab = (id: number) => {
-    setActiveTab(id);
-    if (id === 0) {
-        setIsDrawerOpen((prev)=> !prev)
-    }
-    else {
-        setIsDrawerOpen(false);
-    }
-  };
+        setActiveTab(id);
+        if (id === 0) {
+            setIsDrawerOpen((prev) => !prev)
+        }
+        else {
+            setIsDrawerOpen(false);
+        }
+    };
 
     return (
         <>
@@ -43,18 +46,32 @@ const TabMobile: React.FC = () => {
                             Lọc
                         </span>
                     </li>
-
-                    <Link
-                        to='/login'
-                        onClick={() => handleClickTab(2)}
+                    {isAuthenticated ? (<div onClick={() => handleClickTab(2)}
                         className={`cursor-pointer flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-all duration-200 min-w-0 flex-1 ${activeTab === 2 ? 'text-blue-600 bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
-                            }`}
-                    >
-                        <CiUser size={24} className={`mb-1 ${activeTab === 2 ? 'text-blue-600' : 'text-gray-500'}`} />
+                            }`}>
+                        <img
+                            src={user && user.avatar?.url ? user.avatar.url : "/default-avatar.png"}
+                            alt=""
+                            className="w-10 h-10 rounded-full object-cover border border-gray-300 cursor-pointer hover:border-indigo-500 transition-colors"
+                        />
                         <span className={`text-xs font-medium truncate ${activeTab === 2 ? 'text-blue-600' : 'text-gray-500'}`}>
                             Tài khoản
                         </span>
-                    </Link>
+                    </div>) : (
+                        <Link
+                            to='/login'
+                            onClick={() => handleClickTab(2)}
+                            className={`cursor-pointer flex flex-col items-center justify-center py-2 px-3 rounded-lg transition-all duration-200 min-w-0 flex-1 ${activeTab === 2 ? 'text-blue-600 bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                                }`}
+                        >
+                            <CiUser size={24} className={`mb-1 ${activeTab === 2 ? 'text-blue-600' : 'text-gray-500'}`} />
+                            <span className={`text-xs font-medium truncate ${activeTab === 2 ? 'text-blue-600' : 'text-gray-500'}`}>
+                                Tài khoản
+                            </span>
+                        </Link>
+                    )
+                    }
+
 
                     <li
                         onClick={() => handleClickTab(3)}
@@ -67,7 +84,7 @@ const TabMobile: React.FC = () => {
                         </span>
                     </li>
                 </ul>
-            </div>
+            </div >
             <DrawerMobile open={isDrawerOpen} title='Danh Mục' onClose={() => setIsDrawerOpen(false)} >
                 <div className="p-4">
                     <h2 className="text-lg font-semibold mb-4">Danh mục sản phẩm</h2>
