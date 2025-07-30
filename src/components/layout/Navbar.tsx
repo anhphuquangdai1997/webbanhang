@@ -10,6 +10,7 @@ import Menu from './Menu';
 import DrawerMobile from './DrawerMobile';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { logout } from '../../redux/actions/userAction';
+import Sidebarr from './Sidebar';
 
 const Navbar = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -48,7 +49,11 @@ const Navbar = () => {
         <>
             {/* DrawerMobile cho mobile */}
             <DrawerMobile open={openDrawer} onClose={() => setOpenDrawer(false)} title="Menu">
-                <div className="p-4">Nội dung menu mobile...</div>
+                <Sidebarr 
+                    isAuthenticated={isAuthenticated}
+                    user={user}
+                    loading={loading}
+                    cartItems={cartItems} />
             </DrawerMobile>
             <nav className="bg-white shadow-lg w-full sticky top-0 left-0 z-10">
                 <div className="max-w-7xl mx-auto px-2 sm:px-2 lg:px-4">
