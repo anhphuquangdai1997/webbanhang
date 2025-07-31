@@ -18,14 +18,14 @@ const Product: React.FC = () => {
     if (loading) return <Loader />
 
     return (
-        <div className='w-full min-h-[800px] p-4'>
+        <div className='w-full min-h-[800px]'>
             {products.length === 0 ? (
                 <div className="flex items-center justify-center h-full">
                     <h2 className="text-xl font-semibold text-gray-600">Không có sản phẩm nào phù hợp</h2>
                 </div>
             ) : (
                 <div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-4">
                         {products.map((product) => (
                             <ProductCard product={product} key={product._id} />
                         ))}

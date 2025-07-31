@@ -35,11 +35,7 @@ const Cart: React.FC = () => {
             <div className="max-w-5xl mx-auto  ">
                 <MenuBar title="Giỏ hàng" />
                 <div className="overflow-x-auto py-10 border-none rounded">
-                    <div className="bg-orange-500 text-white font-semibold grid grid-cols-4 py-2 px-4">
-                        <div className="col-span-2">Sản phẩm</div>
-                        <div className="col-span-1 text-right">Số lượng</div>
-                        <div className="col-span-1 text-right">Thành tiền</div>
-                    </div>
+                    <button className="bg-red-500 p-2 rounded-full font-bold border-none text-white mb-2 ">Giỏ hàng</button>
                     <div className="divide-y divide-gray-200">
                         {cartItems.map(item => (
                             <CartItem key={item.product} item={item} />

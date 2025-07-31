@@ -10,7 +10,7 @@ const Home = () => {
             <div className="mx-auto flex max-w-[1300px]  p-4">
                 <div className="max-w-[300px] hidden md:block"><Filter /></div>
                 <div className="max-w-[1000px] min-h-[800px] mx-auto">
-                    <div className="px-4"><NavHome /></div>
+                    <div><NavHome /></div>
                     <Products />
                 </div>
             </div>

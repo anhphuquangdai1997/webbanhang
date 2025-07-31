@@ -23,44 +23,51 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     };
 
     return (
-        <div className="grid grid-cols-4 items-center border-b border-gray-200 py-4 px-4">
-            <div className="col-span-2 flex items-center">
-                <img src={item.image} alt={item.name} className="w-20 h-20 object-contain mr-4" />
-                <div className="flex-1">
-                    <div>
-                        <p className="md:font-medium font-normal line-clamp-3">{item.name}</p>
-                        <p className="text-sm text-green-500">Giá: {item.price.toLocaleString('vi-VN')} đ</p>
-                    </div>
-                    <button 
-                        onClick={handleRemoveFromCart}
-                        className="text-red-500 hover:text-red-700 transition-colors"
+        <div className="relative flex items-center gap-3 p-3 bg-white border rounded-xl shadow-sm">
+            {/* Ảnh sản phẩm */}
+            <img
+                src={item.image}
+                alt={item.name}
+                className="w-20 h-20 object-contain flex-shrink-0"
+            />
+
+            {/* Nội dung sản phẩm */}
+            <div className="flex flex-col justify-between flex-grow">
+                {/* Tên sản phẩm */}
+                <p className="text-sm font-medium text-gray-800 line-clamp-2 pr-6">{item.name}</p>
+
+                {/* Giá sản phẩm */}
+                <p className="text-sm font-semibold text-red-500 mt-1">
+                    {item.price.toLocaleString('vi-VN')}đ
+                </p>
+
+                {/* Nút số lượng */}
+                <div className="flex items-center gap-2 mt-2">
+                    <button
+                        onClick={() => handleQuantityChange(item.quantity - 1)}
+                        disabled={item.quantity <= 1}
+                        className="w-7 h-7 rounded-full bg-gray-200 text-gray-700 font-bold text-sm flex items-center justify-center disabled:opacity-50"
                     >
-                        <MdDelete size={25} />
+                        -
+                    </button>
+                    <span className="w-6 text-center">{item.quantity}</span>
+                    <button
+                        onClick={() => handleQuantityChange(item.quantity + 1)}
+                        disabled={item.quantity >= item.stock}
+                        className="w-7 h-7 rounded-full bg-gray-200 text-gray-700 font-bold text-sm flex items-center justify-center disabled:opacity-50"
+                    >
+                        +
                     </button>
                 </div>
             </div>
-            <div className="col-span-1 flex items-center justify-end gap-2">
-                <button 
-                    onClick={() => handleQuantityChange(item.quantity - 1)}
-                    disabled={item.quantity <= 1}
-                    className="w-8 h-8 bg-gray-600 text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
-                >
-                    -
-                </button>
-                <span className="w-6 text-center">{item.quantity}</span>
-                <button 
-                    onClick={() => handleQuantityChange(item.quantity + 1)}
-                    disabled={item.quantity >= item.stock}
-                    className="w-8 h-8 bg-gray-600 text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
-                >
-                    +
-                </button>
-            </div>
-            <div className="col-span-1 text-right">
-                <p className="text-lg font-semibold">
-                    {(item.price * item.quantity).toLocaleString('vi-VN')} đ
-                </p>
-            </div>
+
+            {/* Nút xoá */}
+            <button
+                onClick={handleRemoveFromCart}
+                className="absolute top-2 right-2 text-gray-400 hover:text-red-600"
+            >
+                <MdDelete size={18} />
+            </button>
         </div>
     )
 }
