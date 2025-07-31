@@ -33,4 +33,5 @@ export interface ProductState {
     priceRange: [number, number];
     ratings: number;
     productDetail?: Product | null;
+    keyword?:string;
 }

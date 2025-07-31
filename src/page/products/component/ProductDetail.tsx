@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { getProductDetail } from "../../../redux/actions/productActions";
@@ -10,6 +10,9 @@ import { addToCart } from "../../../redux/actions/cartActions";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import Modal from "../../../components/layout/Modal";
 import InteractiveRating from "../../../components/layout/InteractiveRating";
+import { Toast, ToastToggle } from "flowbite-react";
+import { HiExclamation } from "react-icons/hi";
+
 // import { Carousel } from 'react-responsive-carousel';
 // import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -22,6 +25,9 @@ const ProductDetail: React.FC = () => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [rating, setRating] = useState(5);
+    const [showToast, setShowToast] = useState(false);
+    const navigate = useNavigate()
+    const { isAuthenticated } = useAppSelector(state => state.user);
 
     useEffect(() => {
         if (!id) return;
@@ -55,6 +61,17 @@ const ProductDetail: React.FC = () => {
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 2000);
     };
+
+    const checkoutHandler = () => {
+        if (!isAuthenticated) {
+            setShowToast(true);
+            setTimeout(() => {
+                navigate("/login?redirect=shipping")
+            }, 2000);
+            return;
+        }
+        navigate("/login?redirect=shipping");
+    }
 
     return (
         <>
@@ -111,7 +128,7 @@ const ProductDetail: React.FC = () => {
                             <button
                                 className="flex-1 w-full h-full flex flex-col items-center justify-center bg-red-500 text-white border border-gray-100 rounded-md text-center font-bold text-xs md:text-sm mb-[2px]"
                                 type="button"
-                                onClick={() => alert('Mua ngay')}
+                                onClick={checkoutHandler}
                             >
                                 MUA NGAY
                                 <span className="text-[9px] font-tahoma">(Nhận tại nhà hoặc tại cửa hàng)</span>
@@ -255,6 +272,17 @@ const ProductDetail: React.FC = () => {
                     </div>
                 </form>
             </Modal>
+            {showToast && (
+                <div className="fixed top-4 right-4 z-[9999]">
+                    <Toast>
+                        <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-500 dark:bg-orange-700 dark:text-orange-200">
+                            <HiExclamation className="h-5 w-5" />
+                        </div>
+                        <div className="ml-3 text-sm font-normal">Bạn Chưa đăng nhập</div>
+                        <ToastToggle onClick={() => setShowToast(false)} />
+                    </Toast>
+                </div>
+            )}
         </>
     );
 };

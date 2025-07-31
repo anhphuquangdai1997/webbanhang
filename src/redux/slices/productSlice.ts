@@ -13,6 +13,7 @@ const initialState: ProductState = {
     filteredCategory: "",
     priceRange: [0, 10000],
     ratings: 0,
+    keyword:"",
 }
 
 const productSlice = createSlice({
@@ -42,6 +43,10 @@ const productSlice = createSlice({
         setRating: (state, action: PayloadAction<number>) => {
             state.ratings = action.payload;
             state.currentPage = 1; // Reset to first page when filtering by rating
+        },
+        setKeyword:(state,action:PayloadAction<string>)=>{
+            state.keyword=action.payload;
+            state.currentPage=1
         },
         clearFilters: (state) => {
             state.filteredCategory = "";
@@ -100,5 +105,5 @@ const productSlice = createSlice({
 
 
 })
-export const { setCurrentPage, sortPriceAsc, sortPriceDesc, setFilteredCategory, clearFilters, setPriceRange, setRating } = productSlice.actions;
+export const { setCurrentPage, sortPriceAsc, sortPriceDesc, setFilteredCategory, clearFilters, setPriceRange, setRating,setKeyword } = productSlice.actions;
 export default productSlice.reducer;

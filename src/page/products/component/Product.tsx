@@ -9,11 +9,11 @@ import { setCurrentPage } from '../../../redux/slices/productSlice';
 const Product: React.FC = () => {
 
     const dispatch = useAppDispatch();
-    const { products, loading, currentPage, totalPage, filteredCategory, priceRange,ratings } = useAppSelector((state) => state.product)
+    const { products, loading, currentPage, totalPage, filteredCategory, priceRange,ratings,keyword } = useAppSelector((state) => state.product)
 
     useEffect(() => {
-        dispatch(fetchProducts({ page: currentPage, category: filteredCategory, price: priceRange,ratings }));
-    }, [dispatch, currentPage, filteredCategory, priceRange,ratings]);
+        dispatch(fetchProducts({ page: currentPage, category: filteredCategory, price: priceRange,ratings,keyword }));
+    }, [dispatch, currentPage, filteredCategory, priceRange,ratings,keyword]);
 
     if (loading) return <Loader />
 

@@ -11,6 +11,7 @@ import DrawerMobile from './DrawerMobile';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { logout } from '../../redux/actions/userAction';
 import Sidebarr from './Sidebar';
+import { fetchProducts } from '../../redux/actions/productActions';
 
 const Navbar = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -24,6 +25,7 @@ const Navbar = () => {
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
+        dispatch(fetchProducts({ keyword: searchQuery }))
         console.log('Searching for:', searchQuery);
     };
 
@@ -49,7 +51,7 @@ const Navbar = () => {
         <>
             {/* DrawerMobile cho mobile */}
             <DrawerMobile open={openDrawer} onClose={() => setOpenDrawer(false)} title="Menu">
-                <Sidebarr 
+                <Sidebarr
                     isAuthenticated={isAuthenticated}
                     user={user}
                     loading={loading}
@@ -87,6 +89,16 @@ const Navbar = () => {
                                     >
                                         <IoIosSearch size={24} />
                                     </button>
+                                    {searchQuery && (
+                                        <button
+                                            type='button'
+                                            className='absolute right-9 top-0 mt-2 text-gray-400 hover:text-red-500'
+                                            onClick={() => setSearchQuery("")}
+                                            tabIndex={-1}
+                                        >
+                                            <IoClose size={20} />
+                                        </button>
+                                    )}
                                 </div>
                             </form>
                         </div>
@@ -156,10 +168,13 @@ const Navbar = () => {
                                                     <Link
                                                         to="/cart"
                                                         onClick={() => setIsUserMenuOpen(false)}
-                                                        className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition"
+                                                        className="flex items-center  gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition"
                                                     >
                                                         <BsCart2 className="text-gray-500" />
                                                         Giỏ hàng
+                                                        {cartItems.length>0 && (
+                                                        <span className='text-[10px] ml-auto text-gray-600 border-none rounded-full bg-gray-200 px-[4px]'>{cartItems.length}</span>
+                                                        )}
                                                     </Link>
 
                                                     <hr className="my-1 border-gray-100" />
@@ -239,6 +254,16 @@ const Navbar = () => {
                                     >
                                         <IoIosSearch size={24} />
                                     </button>
+                                    {searchQuery && (
+                                        <button
+                                            type='button'
+                                            className='absolute right-9 top-0 mt-2 text-gray-400 hover:text-red-500'
+                                            onClick={() => setSearchQuery("")}
+                                            tabIndex={-1}
+                                        >
+                                            <IoClose size={20} />
+                                        </button>
+                                    )}
                                 </div>
                             </form>
                         </div>

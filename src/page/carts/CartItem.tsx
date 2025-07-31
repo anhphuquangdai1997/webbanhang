@@ -7,9 +7,11 @@ import { updateCartQuantity } from '../../redux/slices/cartSlice';
 
 interface CartItemProps {
     item: CartItemType;
+    checked?:boolean;
+    onCheckChange?:(productId:string,checked:boolean)=>void
 }
 
-const CartItem: React.FC<CartItemProps> = ({ item }) => {
+const CartItem: React.FC<CartItemProps> = ({ item,checked=false,onCheckChange }) => {
     const dispatch = useAppDispatch();
 
     const handleRemoveFromCart = () => {
@@ -21,9 +23,19 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             dispatch(updateCartQuantity({ productId: item.product, quantity: newQuantity }));
         }
     };
+    const handleCheckChange=(e: React.ChangeEvent<HTMLInputElement>)=>{
+        onCheckChange?.(item.product,e.target.checked)
+    }
 
     return (
-        <div className="relative flex items-center gap-3 p-3 bg-white border rounded-xl shadow-sm">
+        <div className="relative flex items-center gap-3 p-3 mt-1 bg-white border rounded-xl shadow-sm">
+            {/* checkbox */}
+            <input 
+                type='checkbox'
+                checked={checked}
+                onChange={handleCheckChange}
+                className='w-4 h-4 accent-red-500 self-start rounded-full text-red-600'
+            />
             {/* Ảnh sản phẩm */}
             <img
                 src={item.image}

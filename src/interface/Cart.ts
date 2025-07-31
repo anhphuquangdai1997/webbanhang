@@ -9,6 +9,7 @@ export interface CartItem {
 export interface ShippingInfo {
     address: string;
     city: string;
+    state:string;
     phonreNo: string;
     postalCode: string;
     country: string;

@@ -23,10 +23,12 @@ const Breadcrumb: React.FC = () => {
     ];
 
     return (
-        <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+        <nav className="flex flex-wrap items-center gap-1 text-sm text-gray-600 mb-4">
             {breadcrumbItems.map((item, index) => (
                 <React.Fragment key={item.path}>
-                    {index > 0 && <IoChevronForward className="text-gray-400" />}
+                    {index > 0 && (
+                        <IoChevronForward className="text-gray-400 mx-1" />
+                    )}
                     {index === breadcrumbItems.length - 1 ? (
                         <span className="text-gray-800 font-medium">{item.label}</span>
                     ) : (
