@@ -2,17 +2,17 @@ import { Fragment } from "react/jsx-runtime";
 import MetaData from "../../components/layout/MetaData";
 import CheckoutSteps from "./CheckoutSteps";
 import { useNavigate } from "react-router-dom";
+import MenuBar from "../../components/layout/MenuBar";
 import { FaBuilding, FaGlobe, FaHome, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
+import { useState } from "react";
 
-interface ShippingFormValues {
-    address: string;
-    ward: string;
-    pinCode: string;
-    phoneNumber: string;
-    country: string;
-}
 
-const Shipping:React.FC<ShippingFormValues> = ({address,ward,pinCode,phoneNumber,country}) => {
+const Shipping:React.FC = () => {
+    const [address, setAddress] = useState('');
+    const [ward, setWard] = useState('');
+    const [pinCode, setPinCode] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [country, setCountry] = useState('');
 
     const navigate = useNavigate()
     const shippingSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -24,12 +24,13 @@ const Shipping:React.FC<ShippingFormValues> = ({address,ward,pinCode,phoneNumber
             <MetaData title="Shipping" />
             <CheckoutSteps progress={10} />
             <div className="max-w-xl mx-auto px-4 py-6 mt-2">
-                <h2 className="text-gray-500 text-center font-bold p-2 border-b-1">Thông Tin</h2>
+                <MenuBar title="Thông Tin" />
                 <form onSubmit={shippingSubmit} className="space-y-4 mt-6">
                     <div className="flex items-center border-none rounded px-3 py-2">
                         <FaGlobe className="text-gray-500 mr-3" />
                         <select
                             value={country}
+                            onChange={(e) => setCountry(e.target.value)}
                             required
                             className="flex-1 outline-none rounded-lg bg-transparent"
                         >
@@ -45,6 +46,7 @@ const Shipping:React.FC<ShippingFormValues> = ({address,ward,pinCode,phoneNumber
                             type="text"
                             placeholder="Address"
                             value={address}
+                            onChange={(e) => setAddress(e.target.value)}
                             required
                             className="flex-1 outline-none rounded-lg bg-transparent"
                         />
@@ -55,6 +57,7 @@ const Shipping:React.FC<ShippingFormValues> = ({address,ward,pinCode,phoneNumber
                             type="text"
                             placeholder="Ward"
                             value={ward}
+                            onChange={(e) => setWard(e.target.value)}
                             required
                             className="flex-1 outline-none rounded-lg bg-transparent"
                         />
@@ -65,6 +68,7 @@ const Shipping:React.FC<ShippingFormValues> = ({address,ward,pinCode,phoneNumber
                             type="text"
                             placeholder="Pin Code"
                             value={pinCode}
+                            onChange={(e) => setPinCode(e.target.value)}
                             required
                             className="flex-1 outline-none rounded-lg bg-transparent"
                         />
@@ -75,6 +79,7 @@ const Shipping:React.FC<ShippingFormValues> = ({address,ward,pinCode,phoneNumber
                             type="text"
                             placeholder="Phone Number"
                             value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
                             required
                             className="flex-1 outline-none rounded-lg bg-transparent"
                         />
